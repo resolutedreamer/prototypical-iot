@@ -1,0 +1,341 @@
+<!-- index.html-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"
+	charset=ISO-8859-1">
+	<title>EE M202A Group Assignment F2014</title>
+	<link rel="stylesheet" type="text/css" href="submenustyle.css">
+	<link rel="stylesheet" type="text/css" href="switch.css">
+	<link href='http://fonts.googleapis.com/css?family=Oswald'
+		rel='stylesheet' type='text/css'>	
+	<script src="//code.jquery.com/jquery-2.1.1.js"></script>
+<!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
+	
+	<script>
+	
+	$(document).ready(function()
+	{
+		<!--Functionality Requirement: Sensing-->
+		
+		
+		<!--dropdown_adc_sampler-->
+		$( "#dropdown_adc_sampler" ).click( 
+		function() {
+			var selected_item = $(this).val()
+			console.log(selected_item)
+			
+			if (selected_item === "1hz")
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49025',
+					type: 'PUT',
+					data: 'position=4&command_string=01&api_key=R5EFGCTY8SAETNOY',
+					
+				});
+			
+			else if (selected_item === "10hz")
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49025',
+					type: 'PUT',
+					data: 'position=4&command_string=10&api_key=R5EFGCTY8SAETNOY',
+					
+				});
+			else if (selected_item === "100hz")
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49025',
+					type: 'PUT',
+					data: 'position=4&command_string=11&api_key=R5EFGCTY8SAETNOY',
+					
+				});
+				
+				
+			else if (selected_item === "Off")
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49025',
+					type: 'PUT',
+					data: 'position=4&command_string=00&api_key=R5EFGCTY8SAETNOY',
+					
+				});
+				
+		}
+		);
+		
+		<!--sw_adc_sampler-->
+		$( "#sw_adc_sampler" ).click(function() {
+		
+			console.log("I clicked on ADC switch")
+			if($(this).prop('checked'))
+				//checked
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49025',
+					type: 'PUT',
+					data: 'position=4&command_string=11&api_key=R5EFGCTY8SAETNOY',
+					success: function() { console.log("ADC Sampler turned on");
+						alert('sw_adc_sampler ON completed'); }
+				});
+			else
+				//unchecked
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49025',
+					type: 'PUT',
+					data: 'position=4&command_string=00&api_key=R5EFGCTY8SAETNOY',
+					success: function() { console.log("ADC Sampler turned off");
+						alert('sw_adc_sampler OFF completed'); }
+				});
+		});
+		
+		
+		
+		<!--Functionality Requirement: Actuation-->
+		
+		<!--sw_digital_out-->
+		$( "#sw_digital_out" ).click(function()
+		{
+			console.log("Output Pin/LED clicked")
+			if($(this).prop('checked'))
+				//checked
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49024',
+					type: 'PUT',
+					data: 'position=3&command_string=1&api_key=R5EFGCTY8SAETNOY',
+					success: function() { console.log("Digital Output Pin/LED turned on");
+						alert('sw_digital_out ON completed'); }
+				});
+			else
+				//unchecked
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49024',
+					type: 'PUT',
+					data: 'position=3&command_string=0&api_key=R5EFGCTY8SAETNOY',
+					success: function() { console.log("Digital Output Pin/LED turned off");
+						alert('sw_digital_out OFF completed'); }
+				});
+		});
+			
+		
+		<!--dropdown_analog_out_controller-->	
+		$( "#dropdown_analog_out_controller" ).click(function() {
+			
+			var selected_item = $(this).val()
+			console.log(selected_item)
+			if (selected_item === "1hz")
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49011',
+					type: 'PUT',
+					data: 'position=1&command_string=00&api_key=R5EFGCTY8SAETNOY',
+					
+				});
+			
+			else if (selected_item === "10hz")
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49011',
+					type: 'PUT',
+					data: 'position=1&command_string=01&api_key=R5EFGCTY8SAETNOY',
+					
+				});
+			else if (selected_item === "100hz")
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49011',
+					type: 'PUT',
+					data: 'position=1&command_string=10&api_key=R5EFGCTY8SAETNOY',
+					
+				});
+			else if (selected_item === "1000hz")
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49011',
+					type: 'PUT',
+					data: 'position=1&command_string=11&api_key=R5EFGCTY8SAETNOY',
+					
+				});
+		});
+		
+		<!--sw_analog_out_controller-->
+		$( "#sw_analog_out_controller" ).click(function() {
+			if($(this).prop('checked'))
+				//checked
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49012',
+					type: 'PUT',
+					data: 'position=2&command_string=1&api_key=R5EFGCTY8SAETNOY',
+					success: function() { console.log("Analog Output Controller turned on");
+						alert('sw_analog_out_controller ON completed'); }
+				});
+			else
+				//unchecked
+				$.ajax
+				({
+					url: 'https://api.thingspeak.com/talkbacks/984/commands/49012',
+					type: 'PUT',
+					data: 'position=2&command_string=0&api_key=R5EFGCTY8SAETNOY',
+					success: function() { console.log("Analog Output Controller turned off");
+						alert('sw_analog_out_controller OFF completed'); }
+				});
+		});
+		
+		
+		
+	
+	});	
+
+	</script>
+		
+	
+</head>
+
+<body>
+	<div id = "grad">
+		<div id ="pagetitle" >
+			<h1 class = "R_title"> EE M202A Group Assignment F2014</h1>
+		</div>
+	
+		<div id="page">
+			<p> 
+				<h1>Functionality Requirement: Sensing</h1>
+				
+				<!--0-1 Events-->
+				<h2>1) 0-1 Events</h2>
+				<p>
+					<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="http://api.thingspeak.com/channels/20719/charts/3?width=450&height=260&results=60&dynamic=true" ></iframe>
+					
+					<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="http://api.thingspeak.com/channels/21010/charts/3?width=450&height=260&results=60&dynamic=true" ></iframe>
+				</p>
+			
+				<!--Light Sensor-->
+				<h2>2) Light Sensor</h2>
+				<p>
+					<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="http://api.thingspeak.com/channels/20719/charts/1?width=450&height=260&results=60&dynamic=true" ></iframe>
+					
+					<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="http://api.thingspeak.com/channels/21010/charts/1?width=450&height=260&results=60&dynamic=true" ></iframe>
+				</p>
+				
+				<!--ADC Channel #0 Sampling Control-->
+				<h2>3) ADC Channel #0 Sampling Control</h2>
+				<p>
+					<!--dropdown_adc_sampler-->
+					<select id="dropdown_adc_sampler">
+					  <option value="1hz">1 Hz</option>
+					  <option value="10hz">10 Hz</option>
+					  <option value="100hz">100 Hz</option>
+					  
+					  <option value="1hz">Off</option>
+					</select>
+					</p>
+					
+					<!--sw_adc_sampler-->
+					<div class="onoffswitch">
+						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sw_adc_sampler" checked>
+						<label class="onoffswitch-label" for="sw_adc_sampler">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+					
+					<p>
+						<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="http://api.thingspeak.com/channels/20719/charts/2?width=450&height=260&results=60&dynamic=true" ></iframe>
+						
+						<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="http://api.thingspeak.com/channels/21010/charts/2?width=450&height=260&results=60&dynamic=true" ></iframe>
+					</p>
+					
+				</p>
+			
+			
+			</p>
+			
+			<p>
+				<h1>Functionality Requirement: Actuation</h1>
+				<h2>1) Digital Output Pin/LED Toggle</h2>
+				<p>
+					<!--sw_digital_out-->
+					<div class="onoffswitch">
+						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sw_digital_out" checked>
+						<label class="onoffswitch-label" for="sw_digital_out">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+				</p>
+				
+				<h2>2) Analog Output Pin Controller</h2>
+				<p>
+					<!--dropdown_analog_out_controller-->
+					<select id="dropdown_analog_out_controller">
+						<option value="1hz">1 Hz</option>
+						<option value="10hz">10 Hz</option>
+						<option value="100hz">100 Hz</option>
+						<option value="1000hz">1000 Hz</option>
+					</select>
+					
+					<!--sw_analog_out_controller-->
+					<div class="onoffswitch">
+						<k>
+						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sw_analog_out_controller" checked>
+						<label class="onoffswitch-label" for="sw_analog_out_controller">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+
+
+				</p>
+			</p>
+			
+		</div>
+
+	</div>
+</body>
+
+<footer>
+
+</footer>
+
+</html>
+
+
+
+<!--	
+<div class="switch1_digitaloutputpin">
+	<sw1>
+	<input type="checkbox" name="switch1_digitaloutputpin" class="switch1_digitaloutputpin-checkbox" id="sw1" checked>
+	<label class="switch1_digitaloutputpin-label" for="myswitch1_digitaloutputpin">
+		<span class="switch1_digitaloutputpin-inner"></span>
+		<span class="switch1_digitaloutputpin-switch"></span>
+	</label>
+	</sw1>
+</div>
+		
+<div class="switch2_analoginputpin">
+	<sw2>
+	<input type="checkbox" name="switch2_analoginputpin" class="switch2_analoginputpin-checkbox" id="switch2_analoginputpin" checked>
+	<label class="switch2_analoginputpin-label" for="switch2_analoginputpin">
+		<span class="switch2_analoginputpin-inner"></span>
+		<span class="switch2_analoginputpin-switch"></span>
+	</label>
+	</sw2>
+</div>
+
+
+
+<div class="switch3_analogoutpin">
+	<sw3>
+	<input type="checkbox" name="switch3_analogoutpin" class="switch3_analogoutpin-checkbox" id="switch3_analogoutpin" checked>
+	<label class="switch3_analogoutpin-label" for="switch3_analogoutpin">
+		<span class="switch3_analogoutpin-inner"></span>
+		<span class="switch3_analogoutpin-switch"></span>
+	</label>
+	</sw3>
+</div>
+
+-->
