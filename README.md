@@ -1,6 +1,9 @@
  Embedded Synchronization System
 ======
 ## A prototypical IoT system that follows the Device-Gateway-Cloud model
+* Two mbed Freedom Development Platforms (FRDM-KL46Z) used as the Device
+* Raspberry Pi used as a gateway to synchronize the two mbeds with NTP time
+* Cloud based backend using MongoDB to store the sensing for web display and actuation
 
 #### Screenshot
 ![Screenshot](/assets/screenshots/ss1.png)
